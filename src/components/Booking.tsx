@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { supabase, type Booking } from '../lib/supabase';
 import { CalendarCheck, MessageCircle, CheckCircle, Loader2 } from 'lucide-react';
 
 const services = [
@@ -16,7 +15,7 @@ const times = [
   '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
 ];
 
-const initialForm: Omit<Booking, 'id' | 'status' | 'created_at'> = {
+const initialForm = {
   name: '',
   phone: '',
   address: '',
@@ -40,15 +39,12 @@ export default function Booking() {
     setSubmitting(true);
     setError('');
 
-    const { error: dbError } = await supabase.from('bookings').insert([form]);
-
-    if (dbError) {
-      setError('Something went wrong. Please try again or contact us via WhatsApp.');
-    } else {
+    // Simulate form submission
+    setTimeout(() => {
       setSuccess(true);
       setForm(initialForm);
-    }
-    setSubmitting(false);
+      setSubmitting(false);
+    }, 800);
   };
 
   const today = new Date().toISOString().split('T')[0];
